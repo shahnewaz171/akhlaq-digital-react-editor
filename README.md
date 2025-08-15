@@ -1,4 +1,4 @@
-# Frontend.App.Editor
+# Akhlaq Digital Editor
 
 It is a web application designed to provide a rich text editor experience. It integrates various Tiptap extensions for enhanced text editing capabilities, including support for mentions, images, lists, and more. The application is built using Next.js and leverages Radix UI components for dropdowns and popovers.
 
