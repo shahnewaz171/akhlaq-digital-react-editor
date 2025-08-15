@@ -4,7 +4,7 @@ It is a web application designed to provide a rich text editor experience. It in
 
 ## 🚀 Features
 
-- Simple JavaScript API for initializing the widget
+- Simple JavaScript API for initializing the editor
 - Auto-initialization via `data-*` attributes
 - NPM support
 - React-based rendering

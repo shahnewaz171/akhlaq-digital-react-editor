@@ -9,7 +9,8 @@ yarn.lock
 .env
 .env.local
 .next
-package.json
+.npm
+.dist
 package-lock.json
 pnpm-lock.yaml
 
@@ -45,4 +46,8 @@ next-env.d.ts
 
 # vsCode workspace settings
 .vscode
-.qodo
+
+# Package build files
+/dist/
+/cdn/
+/npm/
