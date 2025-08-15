@@ -40,7 +40,7 @@ export const formatShortcutKey = (
   key: string,
   isMac: boolean,
   capitalize: boolean = true
-) => {
+): string => {
   if (isMac) {
     const lowerKey = key.toLowerCase();
     return MAC_SYMBOLS[lowerKey] || (capitalize ? key.toUpperCase() : key);
@@ -60,7 +60,7 @@ export const parseShortcutKeys = (props: {
   shortcutKeys: string | undefined;
   delimiter?: string;
   capitalize?: boolean;
-}) => {
+}): string[] => {
   const { shortcutKeys, delimiter = "+", capitalize = true } = props;
 
   if (!shortcutKeys) return [];
@@ -145,7 +145,7 @@ export function isExtensionAvailable(
  * @param position The position in the document to find the node
  * @returns The node at the specified position, or null if not found
  */
-export function findNodeAtPosition(editor: Editor, position: number) {
+export function findNodeAtPosition(editor: Editor, position: number): TiptapNode | null {
   try {
     const node = editor.state.doc.nodeAt(position);
     if (!node) {
@@ -277,7 +277,7 @@ export const handleImageUpload = async (
   return "/images/tiptap-ui-placeholder-image.jpg";
 };
 
-export const handleFileUpload = (editor: Editor) => {
+export const handleFileUpload = (editor: Editor): void => {
   const input = document.createElement("input");
   input.type = "file";
   input.onchange = async () => {
@@ -330,7 +330,7 @@ const ATTR_WHITESPACE =
 export function isAllowedUri(
   uri: string | undefined,
   protocols?: ProtocolConfig
-) {
+): boolean {
   const allowedProtocols: string[] = [
     "http",
     "https",
@@ -357,7 +357,7 @@ export function isAllowedUri(
 
   return (
     !uri ||
-    uri
+    !!uri
       .replace(ATTR_WHITESPACE, "")
       .match(
         new RegExp(

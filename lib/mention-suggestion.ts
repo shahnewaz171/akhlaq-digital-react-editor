@@ -1,7 +1,16 @@
-import { ReactRenderer } from "@tiptap/react";
-import tippy from "tippy.js";
+import { Editor, ReactRenderer } from "@tiptap/react";
+import tippy, { Instance } from "tippy.js";
 
 import { MentionList } from "@/components/tiptap-ui/mention-list";
+
+interface SuggestionProps {
+  editor: Editor;
+  clientRect?: (() => DOMRect | null) | null;
+}
+
+interface SuggestionKeyDownProps {
+  event: KeyboardEvent;
+}
 
 export const mentionSuggestion = {
   items: ({ query }: { query: string }) => {
@@ -37,11 +46,11 @@ export const mentionSuggestion = {
   },
 
   render: () => {
-    let component: any;
-    let popup: any;
+    let component: ReactRenderer<any>;
+    let popup: Instance[];
 
     return {
-      onStart: (props: any) => {
+      onStart: (props: SuggestionProps) => {
         component = new ReactRenderer(MentionList, {
           props,
           editor: props.editor,
@@ -52,7 +61,10 @@ export const mentionSuggestion = {
         }
 
         popup = tippy("body", {
-          getReferenceClientRect: props.clientRect,
+          getReferenceClientRect: () => {
+            const rect = props.clientRect?.();
+            return rect || new DOMRect(0, 0, 0, 0);
+          },
           appendTo: () => document.body,
           content: component.element,
           showOnCreate: true,
@@ -62,7 +74,7 @@ export const mentionSuggestion = {
         });
       },
 
-      onUpdate(props: any) {
+      onUpdate(props: SuggestionProps) {
         component.updateProps(props);
 
         if (!props.clientRect) {
@@ -70,12 +82,15 @@ export const mentionSuggestion = {
         }
 
         popup[0].setProps({
-          getReferenceClientRect: props.clientRect,
+          getReferenceClientRect: () => {
+            const rect = props.clientRect?.();
+            return rect || new DOMRect(0, 0, 0, 0);
+          },
         });
       },
 
-      onKeyDown(props: any) {
-        if (props.event.key === "Escape") {
+      onKeyDown(props: SuggestionKeyDownProps) {
+        if (props.event?.key === "Escape") {
           popup[0].hide();
 
           return true;
