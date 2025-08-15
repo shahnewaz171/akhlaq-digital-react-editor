@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "npm",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "rootDir": "./"
+  },
+  "files": ["./index.tsx"],
+  "include": ["./index.tsx"],
+  "exclude": ["node_modules", ".next", "dist"]
+}

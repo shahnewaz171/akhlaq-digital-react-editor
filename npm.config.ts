@@ -16,7 +16,7 @@ export default () => {
     },
     build: {
       lib: {
-        entry: path.resolve(__dirname, "index.jsx"),
+        entry: path.resolve(__dirname, "index.tsx"),
         name: "AkhlaqDigitalEditor",
         fileName: () => "ad-editor.js",
       },
