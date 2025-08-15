@@ -1,0 +1,23 @@
+.file-upload-node {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+
+  .file-info {
+    display: flex;
+    flex-direction: column;
+
+    .file-name {
+      font-weight: bold;
+    }
+
+    .file-size {
+      font-size: 0.8rem;
+      color: #666;
+    }
+  }
+}
