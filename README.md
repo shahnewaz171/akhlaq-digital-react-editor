@@ -27,6 +27,23 @@ import AppEditor from "@akhlaqdigital/editor";
 
 ---
 
+## 🌐 Usage via CDN
+
+Add the following script to your HTML page:
+
+```html
+<script
+  id="ad-editor"
+  src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js"
+></script>
+```
+
+### What happens:
+
+- A `div` with the ID `ad-editor` will be created (if not already present).
+
+---
+
 ## 🛠 Development
 
 Make sure you have React and ReactDOM available in your environment when developing locally.
