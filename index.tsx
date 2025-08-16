@@ -1,3 +1,10 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
+import { createRoot, Root } from "react-dom/client";
+import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
+import "./app/globals.css";
+
+// inject type
 declare global {
   interface Window {
     ChatKey: {
@@ -6,58 +13,61 @@ declare global {
   }
 }
 
-/* eslint-disable react/jsx-props-no-spreading */
+// unique container ID for the editor
+const EDITOR_CONTAINER_ID = "ad-editor-container";
 
-import { createRoot } from "react-dom/client";
-import "./app/globals.css";
-import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
+// react root & last used config
+let root: Root | null = null;
 
-// Method for loading the editor via JavaScript
+/**
+ * initializes the editor into a container.
+ */
 export const initChatKey = (config: any) => {
-  // Create container for the editor if it doesn't exist
-  let container = document.getElementById("akhlaqdigital-editor-container");
+  let container = document.getElementById(EDITOR_CONTAINER_ID);
+
   if (!container) {
     container = document.createElement("div");
-    container.id = "ad-editor";
+    container.id = EDITOR_CONTAINER_ID;
     document.body.appendChild(container);
   }
 
-  // Render the editor
-  const root = createRoot(container);
+  if (!root) {
+    root = createRoot(container);
+  }
+
   root.render(<SimpleEditor {...config} />);
 };
 
-// Auto-initialize if script is loaded with data attributes
+/**
+ * auto-initialize if script tag is loaded with data attributes.
+ */
 const autoInit = () => {
   const scriptTag = document.getElementById("ad-editor");
+
   if (scriptTag) {
-    const apiKey = scriptTag.getAttribute("ad-key");
-    const apiBaseUrl = scriptTag.getAttribute("ad-api-url");
-    const cdnDomain = scriptTag.getAttribute("ad-cdn-domain");
+    const apiKey = scriptTag.getAttribute("ad-key") || "";
+    const apiBaseUrl = scriptTag.getAttribute("ad-api-url") || "";
+    const cdnDomain = scriptTag.getAttribute("ad-cdn-domain") || "";
+
     initChatKey({
       apiKey,
-      envVariables: {
-        apiBaseUrl,
-        cdnDomain,
-      },
-    });
+      envVariables: { apiBaseUrl, cdnDomain },
+    } as any);
   }
 };
 
-// Expose the init function globally for CDN usage
+// expose globally for CDN usage
 if (typeof window !== "undefined") {
-  window.ChatKey = {
-    init: initChatKey,
-  };
+  window.ChatKey = { init: initChatKey };
 
-  // Auto-initialize if data attributes are present
+  // auto-initialize if data attributes are present
   if (document.readyState === "complete") {
     autoInit();
   } else {
-    window.addEventListener("load", autoInit);
+    window.addEventListener("load", autoInit, { once: true });
   }
 }
 
-// Export components for NPM usage
+// export for NPM usage
 export { SimpleEditor };
 export default SimpleEditor;
