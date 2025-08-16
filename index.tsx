@@ -7,7 +7,7 @@ import "./app/globals.css";
 // inject type
 declare global {
   interface Window {
-    ChatKey: {
+    EditorInit: {
       init: (config: any) => void;
     };
   }
@@ -22,7 +22,7 @@ let root: Root | null = null;
 /**
  * initializes the editor into a container.
  */
-export const initChatKey = (config: any) => {
+export const initEditor = (config: any) => {
   let container = document.getElementById(EDITOR_CONTAINER_ID);
 
   if (!container) {
@@ -49,7 +49,7 @@ const autoInit = () => {
     const apiBaseUrl = scriptTag.getAttribute("ad-api-url") || "";
     const cdnDomain = scriptTag.getAttribute("ad-cdn-domain") || "";
 
-    initChatKey({
+    initEditor({
       apiKey,
       envVariables: { apiBaseUrl, cdnDomain },
     } as any);
@@ -58,7 +58,7 @@ const autoInit = () => {
 
 // expose globally for CDN usage
 if (typeof window !== "undefined") {
-  window.ChatKey = { init: initChatKey };
+  window.EditorInit = { init: initEditor };
 
   // auto-initialize if data attributes are present
   if (document.readyState === "complete") {
