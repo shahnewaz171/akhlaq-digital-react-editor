@@ -21,7 +21,14 @@
     },
     "rootDir": "./"
   },
-  "files": ["./index.tsx"],
-  "include": ["./index.tsx"],
+  "include": [
+    "index.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "hooks/**/*.ts",
+    "hooks/**/*.tsx",
+    "lib/**/*.ts",
+    "lib/**/*.tsx"
+  ],
   "exclude": ["node_modules", ".next", "dist"]
 }

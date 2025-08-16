@@ -15,6 +15,7 @@ export default () => {
       },
     },
     build: {
+      emptyOutDir: false,
       lib: {
         entry: path.resolve(__dirname, "index.jsx"),
         name: "AkhlaqDigitalEditor",
